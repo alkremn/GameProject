@@ -30,6 +30,8 @@ public:
 	float Distance(const Vec2& other) const;
 	Vec2 ProjectOnto(const Vec2& other) const;
 	float AngleBetween(const Vec2& other) const;
+	void Rotate(float angle, const Vec2& roundPoint);
+	Vec2 RotationResult(float angle, const Vec2& roundPoint);
 
 	Vec2 GetUnitVec() const;
 	Vec2& Normalize();

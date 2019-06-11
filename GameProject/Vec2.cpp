@@ -1,6 +1,6 @@
 #include "Vec2.h"
 
-const Vec2 Zero;
+const Vec2 Vec2::Zero;
 
 std::ostream& operator<<(std::ostream& out, const Vec2& vec) {
 	out << "X: " << vec.mX << ", Y: " << vec.mY << std::endl;
@@ -118,5 +118,30 @@ Vec2 Vec2::ProjectOnto(const Vec2& other) const
 
 float Vec2::AngleBetween(const Vec2& other) const
 {
-	return acosf(GetUnitVec().DotProduct(other.GetUnitVec));
+	return acosf(GetUnitVec().DotProduct(other.GetUnitVec()));
+}
+
+void Vec2::Rotate(float angle, const Vec2& aroundPoint)
+{
+	float sine = sinf(angle);
+	float cosine = cosf(angle);
+
+	Vec2 ourPosition = *this - aroundPoint;
+
+	float xRot = ourPosition.mX * cosine - ourPosition.mY * sine;
+	float yRot = ourPosition.mX * sine + ourPosition.mY * cosine;
+	*this = Vec2(xRot, yRot) + aroundPoint;
+}
+
+Vec2 Vec2::RotationResult(float angle, const Vec2& aroundPoint)
+{
+	float sine = sinf(angle);
+	float cosine = cosf(angle);
+
+	Vec2 ourPosition = *this - aroundPoint;
+	
+	float xRot = ourPosition.mX * cosine - ourPosition.mY * sine;
+	float yRot = ourPosition.mX * sine + ourPosition.mY * cosine;
+
+	return Vec2(xRot, yRot) + aroundPoint;
 }
